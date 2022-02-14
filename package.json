@@ -1,0 +1,20 @@
+{
+  "name": "killtheboss",
+  "version": "1.0.0",
+  "description": "a blockchain smart contract game that let the world team up to kill the great monster.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MahmoudOwaimer/KillTheBoss.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MahmoudOwaimer/KillTheBoss/issues"
+  },
+  "homepage": "https://github.com/MahmoudOwaimer/KillTheBoss#readme"
+}
