@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/MahmoudOwaimer/KillTheBoss/issues"
   },
-  "homepage": "https://github.com/MahmoudOwaimer/KillTheBoss#readme"
+  "homepage": "https://github.com/MahmoudOwaimer/KillTheBoss#readme",
+  "devDependencies": {
+    "hardhat": "^2.8.4"
+  }
 }
