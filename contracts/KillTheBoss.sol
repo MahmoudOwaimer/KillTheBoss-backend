@@ -51,7 +51,7 @@ contract KillTheBoss is ERC721 {
     string[] memory characterNames,
     string[] memory characterImageURIs,
     uint[] memory characterHp,
-    uint[] memory characterAttackDmg) ERC721("Heroes", "HERO")
+    uint[] memory characterAttackDmg) ERC721("KingOfAnimals", "KingOfAnimals")
   {
 
     // Loop through all the characters, and save their values in our contract so
