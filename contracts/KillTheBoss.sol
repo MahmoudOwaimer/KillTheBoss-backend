@@ -11,6 +11,9 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 import "hardhat/console.sol";
 
+// Helper we wrote to encode in Base64
+import "./libraries/Base64.sol";
+
 // Our contract inherits from ERC721, which is the standard NFT contract!
 contract KillTheBoss is ERC721 {
 
@@ -72,6 +75,33 @@ contract KillTheBoss is ERC721 {
     // I increment _tokenIds here so that my first NFT has an ID of 1.
     // More on this in the lesson!
     _tokenIds.increment();
+  }
+
+  function tokenURI(uint256 _tokenId) public view override returns (string memory) {
+    CharacterAttributes memory charAttributes = nftHolderAttributes[_tokenId];
+
+    string memory strHp = Strings.toString(charAttributes.hp);
+    string memory strMaxHp = Strings.toString(charAttributes.maxHp);
+    string memory strAttackDamage = Strings.toString(charAttributes.attackDamage);
+
+    string memory json = Base64.encode(
+      abi.encodePacked(
+        '{"name": "',
+        charAttributes.name,
+        ' -- NFT #: ',
+        Strings.toString(_tokenId),
+        '", "description": "This is an NFT that lets people play in the game Metaverse Slayer!", "image": "',
+        charAttributes.imageURI,
+        '", "attributes": [ { "trait_type": "Health Points", "value": ',strHp,', "max_value":',strMaxHp,'}, { "trait_type": "Attack Damage", "value": ',
+        strAttackDamage,'} ]}'
+      )
+    );
+
+    string memory output = string(
+      abi.encodePacked("data:application/json;base64,", json)
+    );
+
+    return output;
   }
 
   // Users would be able to hit this function and get their NFT based on the
