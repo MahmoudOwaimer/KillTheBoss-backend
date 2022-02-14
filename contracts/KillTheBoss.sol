@@ -64,8 +64,7 @@ contract KillTheBoss is ERC721 {
     string memory bossName, // These new variables would be passed in via run.js or deploy.js.
     string memory bossImageURI,
     uint bossHp,
-    uint bossAttackDamage) ERC721("KingOfAnimals", "KingOfAnimals")
-  {
+    uint bossAttackDamage) ERC721("KingOfAnimals", "KingOfAnimals") {
 
     // Initialize the boss. Save it to our global "bigBoss" state variable.
     bigBoss = BigBoss({
@@ -155,6 +154,44 @@ contract KillTheBoss is ERC721 {
 
     // Increment the tokenId for the next person that uses it.
     _tokenIds.increment();
+  }
+
+  function attackBoss() public {
+    // Get the state of the player's NFT.
+    uint256 nftTokenIdOfPlayer = nftHolders[msg.sender];
+    CharacterAttributes storage player = nftHolderAttributes[nftTokenIdOfPlayer];
+    console.log("\nPlayer w/ character %s about to attack. Has %s HP and %s AD", player.name, player.hp, player.attackDamage);
+    console.log("Boss %s has %s HP and %s AD", bigBoss.name, bigBoss.hp, bigBoss.attackDamage);
+
+    // Make sure the player has more than 0 HP.
+    require (
+      player.hp > 0,
+      "Error: character must have HP to attack boss."
+    );
+
+    // Make sure the boss has more than 0 HP.
+    require (
+      bigBoss.hp > 0,
+      "Error: boss must have HP to attack boss."
+    );
+
+    // Allow player to attack boss.
+    if (bigBoss.hp < player.attackDamage) {
+      bigBoss.hp = 0;
+    } else {
+      bigBoss.hp = bigBoss.hp - player.attackDamage;
+    }
+
+    // Allow boss to attack player.
+    if (player.hp < bigBoss.attackDamage) {
+      player.hp = 0;
+    } else {
+      player.hp = player.hp - bigBoss.attackDamage;
+    }
+
+    // Console for ease.
+    console.log("Player attacked boss. New boss hp: %s", bigBoss.hp);
+    console.log("Boss attacked player. New player hp: %s\n", player.hp);
   }
 
 }

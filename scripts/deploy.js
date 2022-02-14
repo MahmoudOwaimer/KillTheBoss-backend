@@ -10,7 +10,11 @@ const main = async () => {
       "https://image.shutterstock.com/image-vector/glow-color-lion-head-artwork-600w-1517955278.jpg"
     ],
     [100, 200, 300, 400, 500],                    // HP values
-    [10, 25, 50, 75, 90]                       // Attack damage values
+    [10, 25, 50, 75, 90],                       // Attack damage values
+    "Thanos", // Boss name
+    "https://bbts1.azureedge.net/images/p/full/2019/06/ab1b90f3-8669-47e4-83ed-e02b53f624a2.jpg", // Boss image
+    100000, // Boss hp
+    50 // Boss attack damage
   );
   await gameContract.deployed();
   console.log("Contract deployed to:", gameContract.address);
@@ -21,19 +25,26 @@ const main = async () => {
   await txn.wait();
   console.log("Minted NFT #1");
 
-  txn = await gameContract.mintCharacterNFT(1);
-  await txn.wait();
-  console.log("Minted NFT #2");
+  // txn = await gameContract.mintCharacterNFT(1);
+  // await txn.wait();
+  // console.log("Minted NFT #2");
 
-  txn = await gameContract.mintCharacterNFT(2);
-  await txn.wait();
-  console.log("Minted NFT #3");
+  // txn = await gameContract.mintCharacterNFT(2);
+  // await txn.wait();
+  // console.log("Minted NFT #3");
 
-  txn = await gameContract.mintCharacterNFT(1);
-  await txn.wait();
-  console.log("Minted NFT #4");
+  // txn = await gameContract.mintCharacterNFT(1);
+  // await txn.wait();
+  // console.log("Minted NFT #4");
 
   console.log("Done deploying and minting!");
+
+  txn = await gameContract.attackBoss();
+  await txn.wait();
+
+  txn = await gameContract.attackBoss();
+  await txn.wait();
+  console.log("Done attacking and deploying!");
 
 };
 
